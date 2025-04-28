@@ -1,17 +1,57 @@
-# this machine readable TOML file defines the common parameters between all tools in this repo.
-# It generally contains all the baselined details of the instrument that always apply.
+# REPLACE WITH PATHS TO SUPPORT DATA OR 
+# IMPORT FROM HIGHER LEVEL CONFIG REPO
+opds_path = ""
+coat_path = ""
+cam_path = ""
 
-[Sensor]
-CMOS_QE = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_QE_curve.fits"
-CMOS_dark = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Dark_Current_vs_Sensor_Temperature.csv"
-CMOS_gain = 4
-CMOS_read = 3  # [electrons]
-CMOS_well = 50000 # [electrons]
+[spectrum] #---------------------------------------------------------------------
+# PLACEHOLDER: This will be replaced with a filter specification
+wvl_reference = '625e-9m' # central wavelength of baselined sloan R-band filter  
+bandwidth = 0.24 # bandwidth of baselined sloan R-band filter; fraction of wvl_reference
 
-[Pupils]  # This should moved to stp_reference_data
-aper_clear_OD = '5m' # Outer diameter of clear aperture on M1
-D_chB_clear_OD = '2m' # Inner diameter of clear aperture on M1
+[sources] #---------------------------------------------------------------------
 
-[sim_settings]  # settings for simulation tool
-npix = 4096 # number of pixels per frame
-beamrad = 0.4 # beam radius
+[sources.guide_star_1]
+magnitude = 17 # R-band Rmag
+position_x = 0 # arcmin
+position_y = 0 # arcmin
+spectral_profile = "pickles_uk_23.fits" # host star spectral template (default is Pickles G0)
+
+[sources.guide_star_2]
+magnitude = 17 # R-band Rmag
+position_x = 5 # arcmin
+position_y = 2 # arcmin
+spectral_profile = "pickles_uk_23.fits" # host star spectral template (default is Pickles G0)
+
+[sources.guide_star_3]
+magnitude = 17 # R-band Rmag
+position_x = 5 # arcmin
+position_y = -2 # arcmin
+spectral_profile = "pickles_uk_23.fits" # host star spectral template (default is Pickles G0)
+
+[sources.guide_star_4]
+magnitude = 17 # R-band Rmag
+position_x = -5 # arcmin
+position_y = 2 # arcmin
+spectral_profile = "pickles_uk_23.fits" # host star spectral template (default is Pickles G0)
+
+[sources.guide_star_5]
+magnitude = 17 # R-band Rmag
+position_x = -5 # arcmin
+position_y = -2 # arcmin
+spectral_profile = "pickles_uk_23.fits" # host star spectral template (default is Pickles G0)
+
+[sensor] #---------------------------------------------------------------------
+
+exposure_time = 1                   # seconds
+black_level = 100
+gain = 100
+pixel_size = '3.76e-6m'
+qe = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_QE_curve.fits" 
+dark_current = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Dark_Current_vs_Sensor_Temperature.csv"
+gain_curve = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Gain_vs_Gain_Setting.csv"
+read_noise = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Read_Noise_vs_Gain_Setting.csv"
+well_depth = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Well_Depth_vs_Gain_Setting.csv"
+temp_nominal = '20Celsius' # CBE
+temp_nominal_range = '1Kelvin' # CBE
+temp_stability = '0.1Kelvin/hour' # WAG
