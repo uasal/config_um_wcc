@@ -9,16 +9,16 @@ use_raytrace = "True"
 [optics] #---------------------------------------------------------------------
 
 [optics.m1]
-beam_size = '3.0m' # derived from Lazuli_Mark-11.zmx by multiplying the "Max Radius" given by the footprint diagram by 2
+beam_size = '3.0m' # derived from UM Mark-11 zmx by multiplying the "Max Radius" given by the footprint diagram by 2
 
 [optics.m2]
-beam_size = '0.2064672m' # derived from Lazuli_Mark-11.zmx by multiplying the "Max Radius" given by the footprint diagram by 2
+beam_size = '0.2064672m' # derived from UM Mark-11 zmx by multiplying the "Max Radius" given by the footprint diagram by 2
 
 [optics.m3]
-beam_size = '0.2444272m' # derived from Lazuli_Mark-11.zmx by multiplying the "Max Radius" given by the footprint diagram by 2
+beam_size = '0.2444272m' # derived from UM Mark-11 zmx by multiplying the "Max Radius" given by the footprint diagram by 2
 
 [optics.m4]
-beam_size = '0.0726244m' # derived from Lazuli_Mark-11.zmx by multiplying the "Max Radius" given by the footprint diagram by 2
+beam_size = '0.0726244m' # derived from UM Mark-11 zmx by multiplying the "Max Radius" given by the footprint diagram by 2
 
 [pr] #---------------------------------------------------------------------
 defocus_vals = [0.0, 0.5, 1.0, 0.5, 1.0] # waves of defocus for each PSF  
