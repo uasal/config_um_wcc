@@ -1,9 +1,5 @@
 title = "WCC Baseline Configuration"
 
-[WCC]
-FOV_w  = '13.75arcminute'
-FOV_h  = '5.16arcminute'
-
 # Default filter added.
 
 [filters]
