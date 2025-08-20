@@ -13,6 +13,9 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+dev = ["pytest"]
+
 [project.urls]
 Homepage = "https://github.com/uasal/config_um_wcc/blob/main/README.md" 
 Changelog = "https://github.com/uasal/config_um_wcc/blob/main/CHANGELOG.md" 
