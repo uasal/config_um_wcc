@@ -1,6 +1,6 @@
 import pytest
 import importlib.metadata
-import config_um_wc
+import config_um_wcc
 
 def test_version_consistency():
     """Ensure __version__ and importlib.metadata.version report the same value."""
