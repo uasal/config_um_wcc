@@ -1,38 +1,82 @@
-# config_project_template
-Example of a configuration repository that is used with a specific simulation tool (or group of tools).
+# config_um_wcc
 
-The naming convention should be config_project_toolname. So a hypothetical example could be `config_hubble_acs`.
+UM WCC-specific repository for support data and configuration management as an installable python package. 
 
-The directory structure is designed as follows:
+Details on the Configuration Management Plan for these repos can be found in the [UASAL Development Guide](https://uasal.github.io/uasal_development_guide/python/configuration_management.html).
 
-- Configuration parameters that are common to all tools in the repository belong in the `common_params.toml` file. 
-- A separate directory (should be named the same as the repo) is needed for python packaging (`config_project_template`).
-- All tool configs must have an `_init.toml` file which contains the default set of parameters for that tool.
-- Config files must contain both values and units. 
-  - Units shall utilize the astropy format.
-- Values without a unit will be marked as *unitless*.
-- The origin of the values should be in a comment (for now).
-- At this time, no other filenames should start with an `_`. This functionality is reserved for future feature implementation(s).
-- Any added configuration file must contain the *full set* of available parameters and not just overrides for the defaults.
+The parameters for each subsystem are found in the `configs` directory, and supporting data is found in the `support_data` directory.
+A description of how configurations are used in UASAL software, users can find an example notebook in the `docs` directory of the  [config_project_template](https://github.com/uasal/config_project_template) repository. 
 
-Configuration files may contain key valued pairs, but also utilize groupings. Such as:
+## Dependencies and Requirements
 
-```toml
-OD_optic1 = '50e-3m'
-[sim_settings]  # settings for simulation tool
-npix = 4096 # number of pixels per frame
-beamrad = 0.4 # fractional beam radius
+`config_um_wcc` is dependent on [utils_config](https://github.com/uasal/utils_config) but will automatically be installed via 
+```sh 
+pip install git+https://github.com/uasal/config_um_wcc.git
 ```
 
-## Configuration Management
-Refer to the [UASAL Configuration Management Summary](https://github.com/uasal/lab_documents/blob/main/computing/development_guide/configuration_management.md) for additionally details on how analysis, simulation tools, and configuration repositories are structured within the UASAL GitHub organization.
+## Pip Installation
 
-For Configuration FAQ's, also defer to the [UASAL Configuration Management Summary](https://github.com/uasal/lab_documents/blob/main/computing/development_guide/configuration_management.md) for more information.
+```sh
+pip install git+https://github.com/uasal/config_um_wcc.git
+```
 
-------------
+## Git Clone Installation
 
-<!-- This code uses ``pre-commit`` to check yaml file syntax, maintain ``black`` formatting, and check ``flake8`` compliance.
-To enable this, run the following commands once (the first removes the previous pre-commit hook)::
+### **1. Clone the Repository**
+```sh
+git clone https://github.com/uasal/config_um_wcc.git
+cd config_um_wcc
+```
 
-    git config --unset-all core.hooksPath
-    pre-commit install -->
+### **2. Install the Package**
+```sh
+pip install .
+```
+
+> [!Note]
+> To install package with optional dependencies *(ex. pytest)*, run the following pip command instead:<br>
+> 
+> `pip install '.[dev]'`<br>
+> **OR**<br>
+> `pip install ".[dev]"`
+>
+> Pytests will be able to be used when installing `config_um_wcc` with the `.[dev]` command.
+
+## Usage
+
+config_um_wcc makes usage of the ConfigLoader class (as *config_loader*) from utils_config via the `load_config_values` method, accepting 'raw' 'parsed' or 'unitless' as an argument, returning a dictionary after parsing the 'configs' directory for .toml files
+```python
+import config_um_wcc
+data = config_um_wcc.load_config_values()
+```
+
+load_config_values() has a default argument of 'raw' but alternatively accepts 3 arguments that trigger data to be formatted differently: 
+- `load_config_values('unitless')` -> 0.01
+- `load_config_values('parsed')` -> {'value': 0.01, 'unit': 'arcsecond'}
+- `load_config_values('raw')` -> 10e-3arcsecond
+
+For importing data and keeping code consistent across installs, config_um_wcc will return the path to support_data with `get_data_path()`
+```python
+import config_um_wcc
+data_path = config_um_wcc.get_data_path()
+print(data_path)
+``` 
+
+## Astropy Unit Validation
+
+All .toml config values should have a valid astropy unit if any units are defined. If no unit is included, the value is assumed to be unitless. A GitHub CI will automatically run a test on push to validate astropy units in the configs, reporting any issues with non-conforming astropy units. If you'd like to perform validation locally, you may run `pytest tests/test_configs.py` from the root directory of the repo. Alternatively in your python environment you may run the following snippet:
+```python
+import config_um_wcc
+config_um_wcc.load_config_values("parsed", return_loader=True).validate_astropy()
+```
+Which will return 'True' if every unit is a valid astropy unit, or a list containing every invalid unit. If you would like to use a custom u
+nit, click [here](https://docs.astropy.org/en/stable/units/combining_and_defining.html#defining-units) for how to define that as a custom unit in Astropy.
+  
+
+## Git large file storage (LFS)
+
+This repository makes use of the git large file storage for files listed in the `.gitattributes` file.
+Accessing these files will require users having (Git Large File Storage (LFS))[https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage] installed on their local machine.
+
+If you have Git LFS installed, then the large files will be pulled by default.
+This can be disabled in your gitconfig, as described (at this link)[https://stackoverflow.com/questions/42019529/how-to-clone-pull-a-git-repository-ignoring-lfs].
