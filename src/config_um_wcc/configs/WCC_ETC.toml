@@ -1,0 +1,6 @@
+title = "WCC Baseline Configuration"
+
+# Default filter added.
+
+[filters]
+filter = "filters/SLOAN_SDSS.rprime_filter.fits"
