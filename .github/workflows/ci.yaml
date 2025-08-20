@@ -1,3 +1,6 @@
+# NOTE: Change / update the BRANCH variable in the repository settings to test against specific branches
+# (Or indicate in the PR for someone to do that for you)
+
 name: CI Pipeline
 
 on:
@@ -10,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -20,17 +23,34 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pytest toml
-   
-    - name: Install Package
-      run: |
-        pip install .
 
-    - name: Run Tests and Save Results
-      id: pytest_results
-      run: |
-        pytest tests/ --tb=short --maxfail=1 --junitxml=report.xml | tee pytest_output.txt
+    - name: Checkout ETC Package
+      uses: actions/checkout@v4
+    - name: Checkout ETC WCC
+      run: | 
+        git clone --branch "${{ vars.BRANCH }}" https://github.com/uasal/stp_etc_imaging.git
 
-        PASSED=$(python -c "import re; f=open('pytest_output.txt').read(); match=re.search(r'(\d+) passed', f); print(match.group(1) if match else '0')")
-        FAILED=$(grep -oP '\d+(?= failed)' pytest_output.txt || echo "0")
+    - name: Install Packages
+      run: |
+        cd stp_etc_imaging
+        pip install .[dev]
+        cd ..
+        pip install .[dev]
+
+    - name: Run PyTests- Config Package
+      id: config_pytest_results
+      run: |
+        cd tests
+        pytest --tb=short --maxfail=1 --junitxml=report.xml | tee config_pytest_output.txt
+
+        PASSED=$(python -c "import re; f=open('config_pytest_output.txt').read(); match=re.search(r'(\d+) passed', f); print(match.group(1) if match else '0')")
+        FAILED=$(grep -oP '\d+(?= failed)' config_pytest_output.txt || echo "0")
+
+    - name: Run PyTests- ETC Package Custom Branch
+      id: etc_pytest_results
+      run: |
+        cd stp_etc_imaging/tests
+        pytest --tb=short --maxfail=1 --junitxml=report.xml | tee etc_pytest_output.txt
+
+        PASSED=$(python -c "import re; f=open('etc_pytest_output.txt').read(); match=re.search(r'(\d+) passed', f); print(match.group(1) if match else '0')")
+        FAILED=$(grep -oP '\d+(?= failed)' etc_pytest_output.txt || echo "0")
