@@ -55,3 +55,7 @@ well_depth = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Well_Depth_vs_Gain_Setting
 temp_nominal = '20Celsius' # CBE
 temp_nominal_range = '1Kelvin' # CBE
 temp_stability = '0.1Kelvin/hour' # WAG
+
+[focal_plane]
+fov_sci_field_w = "210.0mm" # Design Optimized Science Area - derived from REQ - L3PL
+fov_sci_field_h = "120.0mm" # Design Optimized Science Area - derived from REQ - L3PL
