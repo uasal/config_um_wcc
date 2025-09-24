@@ -57,5 +57,7 @@ temp_nominal_range = '1Kelvin' # CBE
 temp_stability = '0.1Kelvin/hour' # WAG
 
 [focal_plane]
-fov_sci_field_w = "210.0mm" # Design Optimized Science Area - derived from REQ - L3PL
-fov_sci_field_h = "120.0mm" # Design Optimized Science Area - derived from REQ - L3PL
+fov_sci_field_w = "210.0mm" # Design Optimized Science Area - derived from PAY-0005, approximated to central detectors. Req from PAY.csv in v0.1 tag of UM reqs.
+fov_sci_field_h = "120.0mm" # Design Optimized Science Area - derived from PAY-0005, approximated to central detectors
+fov_full_field_w = "463.5mm" # Measured projected width of curved plane, sensor edge to sensor edge, per Steve M on 2025-09-12
+fov_full_field_h = "227.0mm" # Measured projected width of curved plane, sensor edge to sensor edge, per Steve M on 2025-09-12
