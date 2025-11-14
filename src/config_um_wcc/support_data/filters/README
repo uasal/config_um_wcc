@@ -3,3 +3,5 @@ The SDSS filters have been converted from ascii files available at https://svo2.
 The page itself refers to http://filters.apo.nmsu.edu/curves/SDSS/ which in turn references the following paper - http://filters.apo.nmsu.edu/curves/SDSS/photo_system.pdf
 
 An ADS record of the publication can be found at https://ui.adsabs.harvard.edu/abs/1996AJ....111.1748F/abstract
+
+Kepler_Kepler.K.dat added on 11/14/2025 by Sanchit Sabhlok. The file itself was made by Gudmundur Stefansson by extracting data from https://keplergo.github.io/KeplerScienceWebsite/data/documentation/KSCI-19033-001.pdf Figure 13. 
