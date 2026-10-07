@@ -41,7 +41,10 @@ position_x = -5 # arcmin
 position_y = -2 # arcmin
 spectral_profile = "pickles_uk_23.fits" # host star spectral template (default is Pickles G0)
 
-[sensor] #---------------------------------------------------------------------
+[sensor]
+sensor_name = 'IMX' # Either IMX or HWK
+
+[sensor.IMX] #---------------------------------------------------------------------
 
 exposure_time = 1                   # seconds
 black_level = 100
@@ -55,6 +58,21 @@ well_depth = "sensors/ZWO_ASI6200MM/ZWO_ASI6200MM_Pro_Well_Depth_vs_Gain_Setting
 temp_nominal = '20Celsius' # CBE
 temp_nominal_range = '1Kelvin' # CBE
 temp_stability = '0.1Kelvin/hour' # WAG
+
+[sensor.HWK] #---------------------------------------------------------------------
+
+exposure_time = 1                   # seconds
+black_level = 100                   # Currently unused
+gain = 1                            # Values can be 1, 8, 16 or 32 (from Doug Kelly)
+pixel_size = '4.6e-6m'
+qe = "sensors/HWK4123/HWK4123_QE_Curve.csv"
+dark_current = "sensors/HWK4123/HWK4123_dark_current_vs_sensor_temperature.csv"
+gain_curve = "sensors/HWK4123/HWK4123_Gain_vs_Gain_Setting.csv"
+read_noise = "sensors/HWK4123/HWK4123_Read_Noise_vs_Gain_Setting.csv"
+well_depth = "sensors/HWK4123/HWK4123_Well_Depth_vs_Gain_Setting.csv"
+temp_nominal = '0Celsius' # CBE
+temp_nominal_range = '1Kelvin'      # CBE   # Currently unused
+temp_stability = '0.1Kelvin/hour'   # WAG   # Currently unused
 
 [focal_plane]
 fov_sci_field_w = "210.0mm" # Design Optimized Science Area - derived from PAY-0005, approximated to central detectors. Req from PAY.csv in v0.1 tag of UM reqs.
