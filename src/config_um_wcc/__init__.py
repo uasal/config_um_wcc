@@ -7,10 +7,11 @@ import warnings
 __version__ = importlib.metadata.version(__package__ or "config_um_wcc") 
 
 warnings.warn(
-    "The old usage of defaulting to the IMX sensor when initializing the module is now deprecated."
-    "The sensor import on common_params.toml now needs to be read in as ['sensor']['IMX'] or ['sensor']['HWK']."
+    "The old usage of defaulting to the IMX sensor when initializing the module is now deprecated. "
+    "The sensor import on common_params.toml now needs to be read in as ['sensor']['IMX'] or ['sensor']['HWK']. "
     "The sensor name can be set in ['sensor']['sensor_name'] parameter in the toml.",
-    DeprecationWarning
+    DeprecationWarning,
+    stacklevel=2
 )
 
 def get_data_path():
