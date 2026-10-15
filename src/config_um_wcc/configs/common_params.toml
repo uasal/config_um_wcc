@@ -62,6 +62,7 @@ temp_stability = '0.1Kelvin/hour' # WAG
 [sensor.HWK] #---------------------------------------------------------------------
 
 exposure_time = 1                   # seconds
+black_level = 100
 gain = 1                            # Values can be 1, 8, 16 or 32 (from Doug Kelly)
 pixel_size = '4.6e-6m'
 qe = "sensors/HWK4123/HWK4123_QE_Curve.csv"
